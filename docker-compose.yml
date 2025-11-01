@@ -14,7 +14,7 @@ services:
     # restart: unless-stopped
     restart: always
 
-  certbo˜t:
+  certbot:
     container_name: ${CERTBOT_CONTAINER_NAME:-template-certbot}
     image: certbot/certbot
     volumes:
