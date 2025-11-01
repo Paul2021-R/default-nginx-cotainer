@@ -10,7 +10,7 @@ services:
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot
     networks:
-      - ${WEB_NETWORK_NAME:-template-webnet}
+      - default-network
     # restart: unless-stopped
     restart: always
 
@@ -21,8 +21,8 @@ services:
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot
     networks:
-    - ${WEB_NETWORK_NAME:-template-webnet}
+      - default-network
 
 networks:
-  ${WEB_NETWORK_NAME:-template-webnet}:
+  default-network:
     driver: bridge
