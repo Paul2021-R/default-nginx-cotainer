@@ -1,0 +1,28 @@
+services:
+  nginx:
+    container_name: ${NGINX_CONTAINER_NAME:-template-nginx}
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx_target.conf:/etc/nginx/conf.d/default.conf
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    networks:
+      - ${WEB_NETWORK_NAME:-template-webnet}
+    # restart: unless-stopped
+    restart: always
+
+  certbo˜t:
+    container_name: ${CERTBOT_CONTAINER_NAME:-template-certbot}
+    image: certbot/certbot
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    networks:
+    - ${WEB_NETWORK_NAME:-template-webnet}
+
+networks:
+  ${WEB_NETWORK_NAME:-template-webnet}:
+    driver: bridge
