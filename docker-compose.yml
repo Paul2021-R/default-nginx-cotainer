@@ -6,12 +6,12 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./nginx/nginx_target.conf:/etc/nginx/conf.d/default.conf
+      - ./nginx/nginx_target.conf:/etc/nginx/nginx.conf
       - ./nginx/conf.d:/etc/nginx/conf.d
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot
     networks:
-      - default-network
+      - my-central-proxy-network
     # restart: unless-stopped
     restart: always
 
@@ -22,8 +22,8 @@ services:
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot
     networks:
-      - default-network
+      - my-central-proxy-network
 
 networks:
-  default-network:
-    driver: bridge
+  my-central-proxy-network:
+    external: true
